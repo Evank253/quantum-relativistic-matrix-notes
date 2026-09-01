@@ -1,1 +1,172 @@
-see local file - will send properly
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,array,longtable}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black}
+\title{Session Notes: What Is Real\\[0.4em]
+\large Wormholes, JT/SYK, anyons, and Chern--Simons\\
+(formulas verified in-session; roleplay discarded)}
+\author{Compiled from the Quantara / matrix-notes thread}
+\date{31 August 2026}
+\setlength{\parskip}{0.35em}
+\setlength{\parindent}{0pt}
+\begin{document}
+\maketitle
+\begin{abstract}
+This document keeps only identities, metrics, and numerical checks that are standard theoretical physics and that were derived or verified in the conversation. It discards QUANTARA-kernel roleplay, NEXUS SaaS metrics, FFT-on-ASCII ``quantum compression,'' and fake QUDA/MPI stacks. Nothing here is a claim that vacuum energy, dark matter, or quantum gravity has been solved.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Scope and discards}
+
+\textbf{Kept.} Morris--Thorne NEC; JT generalized entropy and Page time; replica-wormhole structure; Gao--Jafferis--Wall shift; Schwarzian SFF slope; GUE ramp; DSSYK chord moments; Lyapunov bound; SSS genus expansion; disk/trumpet integrals; exponential quintessence background; Ising/Fibonacci MTC data; Kitaev-chain MZMs; $\mathrm{SU}(2)_k$ and $\mathrm{SU}(N)_k$; Jones vs.\ HOMFLY.
+
+\textbf{Discarded.} Multi-engine ``oracle'' terminals, invented Wilson coefficients presented as measurements, NEXUS LTV/ROAS dashboards, complex-phase intent classifiers marketed as QFT, FFT thresholding of character codes as ``quantum fidelity,'' random-matrix $\mathrm{SU}(3)$ fields labeled lattice QCD, and any statement that islands supply Morris--Thorne NEC violation.
+
+\section{GR, negative energy, wormholes}
+
+In GR, $T_{\mu\nu}$ sources curvature. Ordinary matter satisfies the null energy condition (NEC)
+\[
+T_{\mu\nu}k^\mu k^\nu\ge 0
+\qquad\text{for all null }k^\mu.
+\]
+A traversable wormhole throat that stays open requires a NEC violation on some null congruence through the throat. For the Morris--Thorne shape function $b(r)$,
+\[
+\rho(r)=-\frac{c^4}{8\pi G}\frac{b'(r)}{r^2},
+\]
+and the combination $\rho+\tau$ at the throat is negative if the throat is to flare out.
+
+That is a constraint, not a construction. Casimir energy in a static cavity is a real, small NEC-violating effect; it does not give a macroscopic passenger throat. Chronology protection (Hawking) is the conjecture that quantum backreaction destroys time machines; it is not a theorem in full semiclassical gravity.
+
+Alcubierre warp metrics also require exotic stress-energy. Positive-energy matter only focuses geodesics (Raychaudhuri).
+
+Holographic wormholes that exist in the literature (Gao--Jafferis--Wall, later island constructions) inject negative null energy by a \emph{boundary} double-trace coupling, not by bulk exotic matter sitting in a Morris--Thorne chart. Islands compute radiation entropy. They do not replace $T_{UU}<0$ at a passenger throat.
+
+\section{JT gravity, islands, Page curve}
+
+Jackiw--Teitelboim dilaton gravity in AdS$_2$, coupled to matter. Generalized entropy of a region $R$:
+\[
+S(R)=\min_{\mathrm{ext}\,I}\Bigl(\frac{\mathrm{Area}(\partial I)}{4G_N}+S_{\mathrm{semi-cl}}(R\cup I)\Bigr).
+\]
+In JT the ``area'' is the dilaton value $\Phi(\partial I)/4G_N$.
+
+\subsection{Page time (eternal + radiation toy)}
+Radiation entropy growing at rate $\Gamma=\pi c/(3\beta)$, plus an optional evaporation term $\alpha$. Competition
+\[
+S_{\mathrm{rad}}(t)=\min\bigl\{\Gamma t,\; S_i-\alpha t\bigr\}
+\quad\Rightarrow\quad
+t_{\mathrm{Page}}=\frac{S_i}{\Gamma+\alpha}.
+\]
+Check used in-session: $S_i=100$, $c=1$, $\beta=2\pi$, $\alpha=0$ gives $\Gamma=1/6$ and $t_{\mathrm{Page}}=600$. Scrambling time $t_*\sim(\beta/2\pi)\log S_i$ is parametrically shorter.
+
+Replica wormholes: the connected replica saddle dominates after the Page time and implements the swap empty island $\to$ interior island. Information in $R$ is encoded in correlations, not as a macroscopic worldline through $I$.
+
+\subsection{Gao--Jafferis--Wall}
+Two CFTs coupled by a relevant double-trace pulse. Bulk effect is a shock that produces
+\[
+\Delta V = 4\pi G_N \int\langle T_{UU}\rangle\,dU <0
+\]
+in a Planckian window, rendering the thermofield-double wormhole traversable for that window. Same kinematics as a shock-wave diagnostic of chaos; different use.
+
+\section{Disk, trumpet, cylinder, SFF}
+
+Poincar\'e / Schwarzian conventions used in the lab code:
+\[
+Z_{\mathrm{disk}}(\beta)=\Bigl(\frac{\pi}{\beta}\Bigr)^{3/2}\exp\Bigl(S_0+\frac{2\pi^2 C}{\beta}\Bigr),
+\]
+\[
+Z_{\mathrm{tr}}(\beta,b)=\frac{e^{-b^2/4\beta}}{\sqrt{4\pi\beta}}.
+\]
+Double trumpet (cylinder):
+\[
+Z_{0,2}(\beta_1,\beta_2)
+=\int_0^\infty b\,db\;Z_{\mathrm{tr}}(\beta_1,b)\,Z_{\mathrm{tr}}(\beta_2,b)
+=\frac{\sqrt{\beta_1\beta_2}}{2\pi(\beta_1+\beta_2)}.
+\]
+Numeric quadrature at $\beta_1=\beta_2=2$ matched the closed form to relative error $\sim 10^{-16}$.
+
+Continue $\beta\pm it$:
+\[
+\bigl|Z_{0,2}(\beta+it,\beta-it)\bigr|
+=\frac{\sqrt{\beta^2+t^2}}{4\pi\beta}
+\;\xrightarrow{t\gg\beta}\;
+\frac{t}{4\pi\beta}.
+\]
+That linear growth is the SFF \emph{ramp} from topology $(g,n)=(0,2)$, not from eigenvalue rigidity put in by hand. At $t=20$, $\beta=2$: exact $0.7997$, linear asymptote $0.7958$.
+
+Disconnected Schwarzian SFF (two disks):
+\[
+\mathrm{SFF}_{\mathrm{disc}}(t)
+\propto (\beta^2+t^2)^{-3/2}
+\exp\Bigl(\frac{4\pi^2 C\beta}{\beta^2+t^2}\Bigr)
+\;\xrightarrow{t\gg\beta}\; t^{-3}.
+\]
+GUE connected form factor: ramp $t/t_H$ until Heisenberg time $t_H\sim e^{S}$, then plateau $1$.
+
+\section{SYK, chords, Lyapunov}
+
+\subsection{Moments from the $q$-oscillator}
+Double-scaled SYK chords: crossing weight $q=e^{-\lambda}$. Transfer matrix
+\[
+[n]_q=\frac{1-q^n}{1-q},
+\qquad
+H|n\rangle=\sqrt{[n]_q}\,|n-1\rangle+\sqrt{[n+1]_q}\,|n+1\rangle,
+\]
+\[
+m_n(q)=\langle 0|H^n|0\rangle.
+\]
+Limits checked in code: $q=0$ gives Catalan numbers; $q=1$ gives double factorials $(2n-1)!!$. $q\to 1^-$ and low energy recovers the Schwarzian.
+
+\subsection{Lyapunov}
+OTOC $F(t)=\langle V(0)W(t)V(0)W(t)\rangle/\mathrm{norms}$. MSS bound $\lambda_L\le 2\pi/\beta$. Schwarzian saturates $\lambda_L=2\pi/\beta$. DSSYK R-matrix pole: $\lambda_L=(2\pi/\beta)\,(1-O(\lambda))$. Uncrossed 4-point is not chaotic; crossed channel is.
+
+\section{JT as a matrix integral (SSS)}
+\[
+\langle Z(\beta_1)\cdots Z(\beta_n)\rangle_c
+=\sum_{g\ge 0}e^{(2-2g-n)S_0}\,Z_{g,n}(\beta_i),
+\]
+\[
+Z_{g,n}=\int\prod_i\bigl(b_i\,db_i\,Z_{\mathrm{tr}}(\beta_i,b_i)\bigr)\,V_{g,n}^{\mathrm{WP}}(b).
+\]
+First handle: $V_{1,1}^{\mathrm{WP}}(b)=(4\pi^2+b^2)/48$. Disk is Schwarzian. Cylinder is the ramp. Large-genus $V_{g,n}$ is factorial; the series is asymptotic. Eigenvalue discreteness of the matrix integral supplies the plateau.
+
+\section{Exponential quintessence (background only)}
+
+Planck units $M_{\mathrm{pl}}=1$, $V=V_0 e^{-\lambda\phi}$:
+\[
+V'=-\lambda V,\qquad V''=\lambda^2 V,\qquad V'''=-\lambda^3 V.
+\]
+Cosmic time: $\ddot\phi+3H\dot\phi+V'=0$, $\rho_\phi=\tfrac12\dot\phi^2+V$, $p_\phi=\tfrac12\dot\phi^2-V$, $w=p/\rho$.
+E-folds $N=\ln a$, $\chi=d\phi/dN$:
+\[
+\phi''+\Bigl(3+\frac{\dot H}{H^2}\Bigr)\phi'+\frac{V'}{H^2}=0,
+\qquad
+\frac{\dot H}{H^2}=-\frac12(1+w_{\mathrm{tot}}).
+\]
+
+\section{Anyons: Ising, Fibonacci, MZMs}
+
+Ising braid $U_{ij}=(1+\gamma_i\gamma_j)/\sqrt{2}$. Hexagon: $U_{12}U_{23}U_{12}=U_{23}U_{12}U_{23}$. Fibonacci $F^{\tau\tau\tau}_\tau$ is the golden-ratio matrix; $R^{\tau\tau}_I=e^{4\pi i/5}$, $R^{\tau\tau}_\tau=e^{-3\pi i/5}$. Pentagon held to $10^{-16}$. Protection is the gap; braiding is a process.
+
+\section{Modular tensor categories and $\mathrm{SU}(2)_k$}
+
+$q=e^{2\pi i/(k+2)}$, $c=3k/(k+2)$. $k=2$ Ising; integer spins of $k=3$ are Fibonacci. $F$-symbol is a $q$-$6j$. Pentagon is Biedenharn--Elliott.
+
+\section{Jones, $\mathrm{SU}(3)_k$, $\mathrm{SU}(N)_k$}
+
+Jones is $\mathrm{SU}(2)$ fundamental Wilson loop. HOMFLY at $a=q^{N/2}$ is $\mathrm{SU}(N)_k$. $\mathrm{SU}(3)_k$ labels $(p,q)$ with $p+q\le k$. At $k=1$ fusion is $\mathbb{Z}_3$.
+
+\section{What this is not}
+
+Exact QED, lattice QCD continuum, M-theory, a lab Fibonacci computer, a passenger wormhole, or an AGI engine.
+
+Repo: https://github.com/Evank253/quantum-relativistic-matrix-notes (branch Python-3).
+
+\end{document}
